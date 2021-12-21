@@ -18,7 +18,7 @@ class App extends Component {
 
   updateStack(value, stack) {
     stack += value;
-    console.log(stack);
+    // console.log(stack);
     this.setState({ stack: stack });
   }
 
@@ -26,7 +26,6 @@ class App extends Component {
     let {stack} = this.state;
 
     this.onEqual();
-
     this.setState({buffer: stack, operation: op, stack: '0'});
   }
   
@@ -56,10 +55,6 @@ class App extends Component {
     //console.log("key press ", e, " ", e.target)
 
     let stack = this.state.stack;
-    if (stack.length >= 11) {
-      return;
-    }
-
     let value = e.target.innerText;
 
     switch (value) {
@@ -85,9 +80,8 @@ class App extends Component {
   handleOpSelection = (e) => {
 
     let {stack} = this.state;
+    let value = e.target.innerText;
 
-    let temp = "";
-     let value = e.target.innerText;
     switch (value) {
       case '/':
         this.setOperation((a, b) => a/b);
@@ -102,13 +96,11 @@ class App extends Component {
         this.setOperation((a, b) => a*b);
         break;
       case '%':
-        temp = Number(stack) * 0.01;
-        stack = `${temp}`
+        stack = `${ Number(stack) * 0.01 }`
         this.setState({stack: stack});
         break;
       case '+/-':
-          temp = -1 * Number(stack);
-          stack = `${temp}`
+          stack = `${ -1 * Number(stack) }`
           this.setState({stack: stack});
         break;
         case '=':
